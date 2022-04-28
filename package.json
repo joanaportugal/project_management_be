@@ -7,8 +7,7 @@
     "dev": "tsnd --transpile-only --ignore-watch node_modules --respawn src/index.ts",
     "makeMigration": "npx knex migrate:make",
     "runMigrations": "npx knex migrate:latest",
-    "rollback": "npx knex migrate:rollback",
-    "knexHelper": "npx knex"
+    "rollback": "npx knex migrate:rollback"
   },
   "keywords": [],
   "author": "",
