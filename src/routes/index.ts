@@ -25,6 +25,7 @@ router.use((req: Request, res: Response, next: NextFunction) => {
 
 router.post("/users", users.register);
 router.post("/login", users.login);
+router.get("/users/:username", users.profile);
 router.patch("/users/:username", users.update);
 router.delete("/users/:username", users.deleteAccount);
 

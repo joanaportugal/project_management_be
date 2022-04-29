@@ -5,7 +5,11 @@ export async function up(knex: Knex): Promise<void> {
     table.string("username").primary();
     table.string("email").notNullable().unique();
     table.string("name").notNullable();
-    table.string("avatar").notNullable();
+    table
+      .string("avatar")
+      .defaultTo(
+        "https://icon-library.com/images/default-profile-icon/default-profile-icon-24.jpg"
+      );
     table.string("password").notNullable();
   });
 }
