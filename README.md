@@ -1,6 +1,6 @@
 # Project Organized
 
-Server of projects management.
+Backend of projects management.
 
 ---
 ## Requirements
