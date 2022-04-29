@@ -12,7 +12,7 @@ export async function up(knex: Knex): Promise<void> {
       .notNullable()
       .references("username")
       .inTable("users");
-    table.string("role").notNullable();
+    table.enum("role", ["Leader", "Member", "Viewer"]).notNullable();
     table.primary(["projectId", "member"]);
   });
 }

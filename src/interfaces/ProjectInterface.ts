@@ -6,7 +6,7 @@ interface ProjectInterface {
   description: string;
   status: string;
   owner: string;
-  members: Array<MemberInterface>;
+  members?: Array<MemberInterface>;
 }
 
 export default ProjectInterface;

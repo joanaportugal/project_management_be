@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
-//import nodemailer from "nodemailer";
 
 import db from "../db";
 

@@ -29,10 +29,10 @@ router.get("/users/:username", users.profile);
 router.patch("/users/:username", users.update);
 router.delete("/users/:username", users.deleteAccount);
 
+router.get("/users/:username/projects", projects.getAllProjectsFromUser);
 router.post("/projects", projects.create);
-router.get("/projects", projects.getAllProjectsFromUser);
 router.get("/projects/:pID", projects.getProjectById);
-router.patch("/projects/:pID", projects.updateProjectById);
+router.put("/projects/:pID", projects.updateProjectById);
 router.delete("/projects/:pID", projects.deleteProjectById);
 
 router.post("/projects/:pID/members", members.add);
