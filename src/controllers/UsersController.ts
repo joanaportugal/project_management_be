@@ -14,18 +14,36 @@ class UsersController {
       });
     }
 
-    const saltRounds = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+    try {
+      const existsUser = await db("users")
+        .select("*")
+        .where("username", req.body.username)
+        .orWhere("email", req.body.email)
+        .first();
 
-    const userItem: UserInterface = {
-      username: req.body.username,
-      email: req.body.email,
-      name: req.body.name,
-      avatar: req.body.avatar,
-      password: hashedPassword,
-    };
+      if (existsUser) {
+        return res.status(400).json({
+          err: "The email or username already exists!",
+        });
+      }
+    } catch (err) {
+      return res
+        .status(500)
+        .json({ err: "Some error occurred while verifying the credentials." });
+    }
 
     try {
+      const saltRounds = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+
+      const userItem: UserInterface = {
+        username: req.body.username,
+        email: req.body.email,
+        name: req.body.name,
+        avatar: req.body.avatar,
+        password: hashedPassword,
+      };
+
       await db("users").insert(userItem);
 
       return res.status(201).send({
@@ -58,13 +76,13 @@ class UsersController {
       if (!user) {
         return res
           .status(400)
-          .json({ error: "The email or username and password doesn't match!" });
+          .json({ err: "The email or username and password doesn't match!" });
       }
 
       return value
         ? res.status(200).send({ msg: "User logged!" })
         : res.status(400).json({
-            error: "The email or username and password doesn't match!",
+            err: "The email or username and password doesn't match!",
           });
     } catch (err) {
       return res
@@ -82,7 +100,7 @@ class UsersController {
       return user
         ? res.status(200).json({ user })
         : res.status(404).json({
-            error: `User ${req.params.username} not found!`,
+            err: `User ${req.params.username} not found!`,
           });
     } catch (err) {
       return res
@@ -100,7 +118,7 @@ class UsersController {
 
       if (!user) {
         return res.status(404).json({
-          error: `User ${req.params.username} not found!`,
+          err: `User ${req.params.username} not found!`,
         });
       } else if (UserErrors.getUsersUpdateErrors(req.body)) {
         return res.status(400).json({
@@ -160,7 +178,7 @@ class UsersController {
 
       if (!user) {
         return res.status(404).json({
-          error: `User ${req.params.username} not found!`,
+          err: `User ${req.params.username} not found!`,
         });
       }
 

@@ -9,7 +9,6 @@ export async function up(knex: Knex): Promise<void> {
       .inTable("projects");
     table.string("title").notNullable();
     table.string("description").notNullable();
-    table.string("date").notNullable();
     table
       .string("member")
       .notNullable()

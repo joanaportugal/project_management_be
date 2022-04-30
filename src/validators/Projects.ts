@@ -17,3 +17,7 @@ export const getProjectUpdateErrors = (body: ProjectInterface) => {
     ? "Please provide description, icon, name, owner and status!"
     : "";
 };
+
+export const isIdInvalid = (id: string) => {
+  return !parseInt(id) ? "Project id must be an integer number!" : "";
+};

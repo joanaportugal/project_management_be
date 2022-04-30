@@ -48,8 +48,8 @@ router.delete(
 
 router.post("/projects/:pID/notes", notes.create);
 router.get("/projects/:pID/notes", notes.getNotesByProjectId);
-router.patch("/projects/:pID/notes/:nID", notes.updateNoteByProjectId);
-router.delete("/projects/:pID/notes/:nID", notes.deleteNoteByProjectId);
+router.patch("/projects/:pID/notes", notes.updateNoteByProjectId);
+router.delete("/projects/:pID/notes", notes.deleteNoteByProjectId);
 
 router.all("*", (req, res) => {
   return res.status(404).send({

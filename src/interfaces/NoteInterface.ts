@@ -1,8 +1,8 @@
 interface NoteInterface {
   title: string;
   description: string;
-  date: Date;
   member: string;
+  projectId?: number;
 }
 
 export default NoteInterface;

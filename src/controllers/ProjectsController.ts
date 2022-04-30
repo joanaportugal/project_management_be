@@ -101,6 +101,11 @@ class ProjectsController {
   }
 
   async getProjectById(req: Request, res: Response) {
+    if (ProjectErrors.isIdInvalid(req.params.pID)) {
+      return res
+        .status(400)
+        .json({ err: "Project id must be an integer number!" });
+    }
     try {
       const project = await db("projects")
         .select("*")
@@ -120,15 +125,15 @@ class ProjectsController {
   }
 
   async updateProjectById(req: Request, res: Response) {
-    if (ProjectErrors.getProjectUpdateErrors(req.body)) {
+    if (
+      ProjectErrors.getProjectUpdateErrors(req.body) ||
+      ProjectErrors.isIdInvalid(req.params.pID)
+    ) {
       return res.status(400).json({
-        err: ProjectErrors.getProjectUpdateErrors(req.body),
+        err:
+          ProjectErrors.getProjectUpdateErrors(req.body) ||
+          ProjectErrors.isIdInvalid(req.params.pID),
       });
-    }
-    if (!parseInt(req.params.pID)) {
-      return res
-        .status(400)
-        .json({ err: "Project id must be an integer number!" });
     }
 
     const project = await db("projects")
@@ -163,10 +168,10 @@ class ProjectsController {
   }
 
   async deleteProjectById(req: Request, res: Response) {
-    if (!parseInt(req.params.pID)) {
+    if (ProjectErrors.isIdInvalid(req.params.pID)) {
       return res
         .status(400)
-        .json({ err: "Project id must be an integer number!" });
+        .json({ err: ProjectErrors.isIdInvalid(req.params.pID) });
     }
 
     const project = await db("projects")
