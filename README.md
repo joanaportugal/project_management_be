@@ -1,6 +1,8 @@
 # Project Organized
 
-Backend of projects management.
+Backend of projects' management.
+
+Project based on the idea of Rocketseat's 2019 OmniStack: https://github.com/rocketseat-education/curso-omnistack-back-end
 
 ---
 ## Requirements
